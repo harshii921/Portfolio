@@ -1,34 +1,44 @@
 /**
  * ==========================================================================
- * Sai Harshini Nayani – Portfolio
- * Vanilla JavaScript. No build step, works in any modern browser.
+ * Sai Harshini Nayani – Portfolio JavaScript
+ * Palette: Jet Black, Muted Moss Green, Neon Green
+ * Vanilla ES6+ logic: Theme toggling, scroll progress bar,
+ * dynamic projects, GitHub API repository integration, smooth navigation,
+ * clipboard copy, and contact form handling.
  * ==========================================================================
  */
 
-// 1. ADD YOUR PROJECTS HERE
-// Each entry becomes a card that opens `liveUrl` in a new tab.
-// Optional: `githubUrl` shows a "Code" link, `preview: "timeline"` shows the mini calendar preview.
+// 1. PROJECTS CONFIGURATION
 const myProjects = [
   {
-    title: "MeetWise – Intelligent Meeting Scheduler",
-    description: "AI-powered planner that finds conflict-free meeting slots across busy calendars and timezones, using an interval-intersection engine and a natural-language request parser.",
-    tags: ["FastAPI", "WebGL", "Vanilla JS", "NLP"],
-    liveUrl: "https://intelligent-meeting-scheduler.onrender.com/",
-    githubUrl: "", // add the repo link here when it is public
-    preview: "timeline"
+    title: "DevCanvas – UI Component System",
+    description: "A modular, accessible UI library and design token system built with React and Tailwind CSS, based on interactive component specifications prototyped in Figma.",
+    tags: ["React", "Tailwind CSS", "Figma", "UI Tokens", "WCAG"],
+    liveUrl: "https://github.com/harshii921",
+    githubUrl: "https://github.com/harshii921",
+    badge: "Design System"
+  },
+  {
+    title: "WeatherSphere – Forecast Dashboard",
+    description: "A clean, responsive weather application consuming open REST APIs for real-time weather metrics, multi-day forecasts, and dynamic interactive meteorological displays.",
+    tags: ["JavaScript (ES6+)", "REST APIs", "CSS Grid", "Responsive"],
+    liveUrl: "https://github.com/harshii921",
+    githubUrl: "https://github.com/harshii921",
+    badge: "Web App"
   }
 ];
 
-// 2. PROFILE & CONTACT INFO
+// 2. PROFILE CONFIGURATION
 const profileInfo = {
   name: "Sai Harshini Nayani",
+  email: "nayanisaiharshini@gmail.com",
   github: "https://github.com/harshii921",
   githubUsername: "harshii921",
-  email: "nayanisaiharshini@gmail.com"
+  linkedin: "https://www.linkedin.com/in/saiharshini-nayani-ba805032b?utm_source=share_via&utm_content=profile&utm_medium=member_android"
 };
 
 // --------------------------------------------------------------------------
-// Helpers
+// Utilities
 // --------------------------------------------------------------------------
 function escapeHtml(text) {
   const div = document.createElement('div');
@@ -40,10 +50,6 @@ function escapeAttr(text) {
   return escapeHtml(text).replace(/"/g, '&quot;');
 }
 
-function icon(name) {
-  return `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
-}
-
 const toastEl = document.getElementById('toast');
 let toastTimer;
 function showToast(message) {
@@ -51,36 +57,74 @@ function showToast(message) {
   toastEl.textContent = message;
   toastEl.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2600);
+  toastTimer = setTimeout(() => {
+    toastEl.classList.remove('show');
+  }, 2600);
 }
 
 // --------------------------------------------------------------------------
-// Theme toggle (light / dark). The saved choice is applied in <head> already.
+// Theme Toggle (Jet Black & Moss vs Refined Light)
 // --------------------------------------------------------------------------
 (function initTheme() {
   const root = document.documentElement;
   const btn = document.getElementById('theme-toggle');
   if (!btn) return;
 
-  function sync() {
-    const dark = root.getAttribute('data-theme') === 'dark';
-    btn.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  function syncTheme() {
+    const isDark = root.getAttribute('data-theme') === 'dark';
+    btn.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+    btn.setAttribute('title', isDark ? 'Switch to light theme' : 'Switch to dark theme');
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', dark ? '#0e1410' : '#faf9f6');
+    if (meta) {
+      meta.setAttribute('content', isDark ? '#080a09' : '#f5f8f6');
+    }
   }
 
   btn.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const current = root.getAttribute('data-theme') === 'dark';
+    const next = current ? 'light' : 'dark';
     root.setAttribute('data-theme', next);
-    try { localStorage.setItem('portfolio-theme', next); } catch (e) { /* storage unavailable */ }
-    sync();
+    try {
+      localStorage.setItem('portfolio-theme', next);
+    } catch (e) {}
+    syncTheme();
   });
 
-  sync();
+  syncTheme();
 })();
 
 // --------------------------------------------------------------------------
-// Mobile menu
+// Scroll Progress Bar & Floating Back-To-Top Button
+// --------------------------------------------------------------------------
+(function initScrollListeners() {
+  const progressEl = document.getElementById('scroll-progress');
+  const backToTopBtn = document.getElementById('back-to-top');
+
+  window.addEventListener('scroll', () => {
+    const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (totalHeight > 0 && progressEl) {
+      const scrollPercent = (window.scrollY / totalHeight) * 100;
+      progressEl.style.width = `${Math.min(100, Math.max(0, scrollPercent))}%`;
+    }
+
+    if (backToTopBtn) {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }
+  }, { passive: true });
+
+  if (backToTopBtn) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+})();
+
+// --------------------------------------------------------------------------
+// Mobile Navigation Drawer
 // --------------------------------------------------------------------------
 (function initMobileMenu() {
   const toggle = document.getElementById('menu-toggle');
@@ -93,62 +137,78 @@ function showToast(message) {
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   }
 
-  toggle.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
-  menu.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  toggle.addEventListener('click', () => {
+    setOpen(!menu.classList.contains('open'));
+  });
+
+  menu.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setOpen(false));
+  });
+
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && menu.classList.contains('open')) {
       setOpen(false);
       toggle.focus();
     }
   });
+
   window.matchMedia('(min-width: 801px)').addEventListener('change', (e) => {
     if (e.matches) setOpen(false);
   });
 })();
 
 // --------------------------------------------------------------------------
-// Highlight the nav link for the section currently in view
+// Active Navigation Link Highlighting (IntersectionObserver)
 // --------------------------------------------------------------------------
 (function initActiveNav() {
-  const links = document.querySelectorAll('.nav-link');
+  const links = document.querySelectorAll('.nav .nav-link');
   const sections = Array.from(links)
     .map((link) => document.querySelector(link.getAttribute('href')))
     .filter(Boolean);
+
   if (!sections.length || !('IntersectionObserver' in window)) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       links.forEach((link) => {
-        const active = link.getAttribute('href') === `#${entry.target.id}`;
-        link.classList.toggle('active', active);
-        if (active) link.setAttribute('aria-current', 'true');
-        else link.removeAttribute('aria-current');
+        const isActive = link.getAttribute('href') === `#${entry.target.id}`;
+        link.classList.toggle('active', isActive);
+        if (isActive) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
       });
     });
-  }, { rootMargin: '-45% 0px -50% 0px' });
+  }, { rootMargin: '-40% 0px -55% 0px' });
 
   sections.forEach((section) => observer.observe(section));
 })();
 
 // --------------------------------------------------------------------------
-// Copy email
+// Copy Email to Clipboard
 // --------------------------------------------------------------------------
 (function initCopyEmail() {
-  const btn = document.getElementById('copy-email');
-  if (!btn) return;
-  btn.addEventListener('click', async () => {
+  async function copyEmailAction() {
     try {
       await navigator.clipboard.writeText(profileInfo.email);
-      showToast('Email address copied');
+      showToast('✓ Email copied to clipboard');
     } catch (e) {
       showToast(`Email: ${profileInfo.email}`);
+    }
+  }
+
+  ['copy-email', 'copy-email-hero', 'hero-copy-email'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.addEventListener('click', copyEmailAction);
     }
   });
 })();
 
 // --------------------------------------------------------------------------
-// Contact form – opens the visitor's email app with the message filled in
+// Contact Form Submission (Mailto Handler with Validation)
 // --------------------------------------------------------------------------
 (function initContactForm() {
   const form = document.getElementById('contact-form');
@@ -160,135 +220,137 @@ function showToast(message) {
   const subjectEl = document.getElementById('form-subject');
   const messageEl = document.getElementById('form-message');
 
-  function fail(message, field) {
-    errorEl.textContent = message;
-    errorEl.hidden = false;
-    [nameEl, emailEl, messageEl].forEach((el) => el.removeAttribute('aria-invalid'));
-    if (field) {
-      field.setAttribute('aria-invalid', 'true');
-      field.focus();
+  function showError(msg, targetField) {
+    if (errorEl) {
+      errorEl.textContent = msg;
+      errorEl.hidden = false;
+    }
+    [nameEl, emailEl, messageEl].forEach((el) => {
+      if (el) el.removeAttribute('aria-invalid');
+    });
+    if (targetField) {
+      targetField.setAttribute('aria-invalid', 'true');
+      targetField.focus();
     }
   }
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const name = nameEl.value.trim();
-    const email = emailEl.value.trim();
-    const subject = subjectEl.value.trim();
-    const message = messageEl.value.trim();
+    const name = nameEl ? nameEl.value.trim() : '';
+    const email = emailEl ? emailEl.value.trim() : '';
+    const subject = subjectEl ? subjectEl.value.trim() : '';
+    const message = messageEl ? messageEl.value.trim() : '';
 
-    if (!name) return fail('Enter your name.', nameEl);
-    if (!/^\S+@\S+\.\S+$/.test(email)) return fail('Enter a valid email address.', emailEl);
-    if (!message) return fail('Enter a message.', messageEl);
+    if (!name) return showError('Please enter your name.', nameEl);
+    if (!/^\S+@\S+\.\S+$/.test(email)) return showError('Please enter a valid email address.', emailEl);
+    if (!message) return showError('Please write a message before sending.', messageEl);
 
-    errorEl.hidden = true;
-    [nameEl, emailEl, messageEl].forEach((el) => el.removeAttribute('aria-invalid'));
+    if (errorEl) errorEl.hidden = true;
+    [nameEl, emailEl, messageEl].forEach((el) => {
+      if (el) el.removeAttribute('aria-invalid');
+    });
 
     const mailSubject = subject || `Portfolio enquiry from ${name}`;
-    const body = `${message}\n\n${name}\n${email}`;
-    window.location.href =
-      `mailto:${profileInfo.email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(body)}`;
+    const mailBody = `Hi Sai Harshini,\n\n${message}\n\n--\nFrom: ${name}\nEmail: ${email}`;
 
+    window.location.href = `mailto:${profileInfo.email}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`;
     showToast('Opening your email app…');
   });
 })();
 
 // --------------------------------------------------------------------------
-// Projects (from the myProjects array above)
+// Render Showcase Projects
 // --------------------------------------------------------------------------
 function renderMyProjects() {
   const grid = document.getElementById('my-projects-grid');
-  const empty = document.getElementById('projects-empty');
   if (!grid) return;
 
-  if (!myProjects.length) {
-    if (empty) empty.hidden = false;
-    return;
-  }
+  if (!myProjects || !myProjects.length) return;
 
   grid.innerHTML = myProjects.map((p) => {
-    let host = '';
-    try { host = new URL(p.liveUrl).host; } catch (e) { /* ignore invalid URL */ }
-
-    const preview = p.preview === 'timeline' ? `
-      <div class="project-preview" aria-hidden="true">
-        <div class="pp-window">
-          <div class="pp-bar">
-            <span class="pp-dot"></span><span class="pp-dot"></span><span class="pp-dot"></span>
-            <span class="pp-url">${escapeHtml(host)}</span>
-          </div>
-          <div class="pp-body">
-            <div class="pp-row"><span style="left:6%;width:32%"></span><span style="left:72%;width:20%"></span></div>
-            <div class="pp-row"><span style="left:0;width:40%"></span><span style="left:68%;width:26%"></span></div>
-            <div class="pp-row"><span style="left:18%;width:24%"></span><span style="left:66%;width:14%"></span></div>
-          </div>
-        </div>
-      </div>` : '';
-
-    const tags = (p.tags || []).map((t) => `<li>${escapeHtml(t)}</li>`).join('');
-
-    const codeLink = p.githubUrl ? `
-      <a class="project-code" href="${escapeAttr(p.githubUrl)}" target="_blank" rel="noopener noreferrer">
-        ${icon('github')}<span>Code</span>
+    const tagsHtml = (p.tags || []).map((t) => `<span class="tech-tag">${escapeHtml(t)}</span>`).join('');
+    const badgeHtml = p.badge ? `<span class="badge badge-moss">${escapeHtml(p.badge)}</span>` : '';
+    const codeBtn = p.githubUrl ? `
+      <a href="${escapeAttr(p.githubUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+        <svg class="icon" aria-hidden="true"><use href="#i-github"/></svg>
+        <span>Code</span>
       </a>` : '';
 
     return `
       <article class="card project-card">
-        ${preview}
-        <div class="project-body">
-          <h3>
-            <a href="${escapeAttr(p.liveUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(p.title)}</a>
-          </h3>
-          <p>${escapeHtml(p.description)}</p>
-          <ul class="tags">${tags}</ul>
-          <div class="project-footer">
-            <span class="project-cta"><span>View live site</span>${icon('arrow-up-right')}</span>
-            ${codeLink}
-          </div>
+        <div class="project-card-header">
+          ${badgeHtml}
+          <a href="${escapeAttr(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="text-link" style="font-size:0.85rem;">
+            <span>Open</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </a>
+        </div>
+        <h3>${escapeHtml(p.title)}</h3>
+        <p>${escapeHtml(p.description)}</p>
+        <div class="project-card-tags">
+          ${tagsHtml}
+        </div>
+        <div class="project-card-footer">
+          <a href="${escapeAttr(p.liveUrl)}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+            <span>Explore Project</span>
+            <svg class="icon" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+          </a>
+          ${codeBtn}
         </div>
       </article>`;
   }).join('');
 }
 
 // --------------------------------------------------------------------------
-// Extra GitHub repositories (public, non-fork, via the GitHub API)
+// Live GitHub Repositories (Fetch from GitHub API)
 // --------------------------------------------------------------------------
 async function loadGitHubRepos() {
   const block = document.getElementById('github-block');
   const container = document.getElementById('github-repos-grid');
-  const empty = document.getElementById('projects-empty');
   if (!container || !block) return;
 
   try {
     const res = await fetch(`https://api.github.com/users/${profileInfo.githubUsername}/repos?sort=updated&per_page=9`);
-    if (!res.ok) return; // offline or rate limited: keep the page as it is
+    if (!res.ok) return;
 
-    const repos = (await res.json()).filter((r) => !r.fork).slice(0, 6);
+    const repos = (await res.json())
+      .filter((r) => !r.fork)
+      .slice(0, 6);
+
     if (!repos.length) return;
 
-    container.innerHTML = repos.map((repo) => `
-      <article class="card repo-card">
-        <h4>${escapeHtml(repo.name.replace(/[-_]/g, ' '))}</h4>
-        <p>${escapeHtml(repo.description || 'Web project built with clean, responsive code.')}</p>
-        <div class="repo-meta">
-          <span>${escapeHtml(repo.language || 'Code')} · Updated ${escapeHtml(new Date(repo.updated_at).toLocaleDateString())}</span>
-          <a href="${escapeAttr(repo.html_url)}" target="_blank" rel="noopener noreferrer">View code</a>
-        </div>
-      </article>`).join('');
+    container.innerHTML = repos.map((repo) => {
+      const cleanName = repo.name.replace(/[-_]/g, ' ');
+      const desc = repo.description || 'Clean, responsive web project built with modern frontend standards.';
+      const lang = repo.language || 'Code';
+      const stars = repo.stargazers_count > 0 ? `<span>★ ${repo.stargazers_count}</span> &bull; ` : '';
+      const date = new Date(repo.updated_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+
+      return `
+        <article class="card repo-card">
+          <h4>${escapeHtml(cleanName)}</h4>
+          <p>${escapeHtml(desc)}</p>
+          <div class="repo-meta">
+            <span>${stars}${escapeHtml(lang)} &bull; ${escapeHtml(date)}</span>
+            <a href="${escapeAttr(repo.html_url)}" target="_blank" rel="noopener noreferrer">View code &rarr;</a>
+          </div>
+        </article>`;
+    }).join('');
 
     block.hidden = false;
-    if (empty) empty.hidden = true;
   } catch (err) {
-    /* network error: fail silently */
+    /* Network or rate limit: fail gracefully */
   }
 }
 
 // --------------------------------------------------------------------------
-// Init
+// DOM Ready
 // --------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
-  const year = document.getElementById('year');
-  if (year) year.textContent = new Date().getFullYear();
+  const yearEl = document.getElementById('year');
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 
   renderMyProjects();
   loadGitHubRepos();

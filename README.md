@@ -1,62 +1,48 @@
-# Sai Harshini Nayani – Developer Portfolio
+# Sai Harshini Nayani – Developer & UI Designer Portfolio
 
-A clean, responsive portfolio built with plain **HTML**, **CSS** and **JavaScript**. No build tools and no `node_modules`: open `index.html` in a browser, or deploy straight to GitHub Pages.
+A refined, professional, and elegant portfolio built with vanilla **HTML5**, **CSS3**, and **JavaScript (ES6+)**. No build tools, zero dependencies, and instant load times.
 
-- **GitHub**: [github.com/harshii921](https://github.com/harshii921)
+- **GitHub Profile**: [github.com/harshii921](https://github.com/harshii921)
 - **LinkedIn**: [Sai Harshini Nayani](https://www.linkedin.com/in/saiharshini-nayani-ba805032b?utm_source=share_via&utm_content=profile&utm_medium=member_android)
 - **Email**: nayanisaiharshini@gmail.com
 
-## Project structure
+---
+
+## 🎨 Color Palette & Design System
+
+The portfolio is designed with a focused, high-contrast palette:
+- **Jet Black (`#080a09`)**: Deep velvety black background and surface base.
+- **Muted Moss Green (`#152019`, `#283a2f`, `#577362`)**: Structured, organic borders, subtle cards, and secondary details.
+- **Neon Green (`#25f46b`)**: High-visibility electric accent for status beacons, active nav links, focus rings, and primary action buttons.
+
+---
+
+## ✨ Key Characteristics
+
+- **Direct Executive Intro (No Landing Page Splash)**: Immediately presents the developer's identity, core capabilities, and work without oversized marketing fluff or bouncy gimmicks.
+- **Typography**: Clean, architectural **Plus Jakarta Sans** for headings and prose, paired with **JetBrains Mono** for technical tags and code metadata.
+- **MeetWise Spotlight**: Visual calendar preview mockup highlighting interval-intersection scheduling and NLP request parsing.
+- **Live GitHub Integration**: Dynamically loads recent repositories from `@harshii921` via the GitHub API.
+- **Interactive Tools**: 1-click clipboard email copy, active scroll progress bar, back-to-top button, and a validated contact form.
+
+---
+
+## 📁 Files
 
 ```text
 portfolio/
-├── index.html            # Page markup: hero, about, skills, projects, education, contact
-├── style.css             # Design tokens, layout, light and dark themes
-├── script.js             # Projects data, theme toggle, mobile menu, contact form, GitHub repos
+├── index.html            # Semantic markup: Executive Intro, About, Skills, Projects, Education, Contact
+├── style.css             # Jet Black, Muted Moss & Neon Green design tokens, responsive layout
+├── script.js             # Projects data, theme toggle, GitHub API fetcher, email copy & contact form
 ├── assets/
-│   ├── favicon.svg
+│   ├── favicon.svg       # Branded SVG favicon in Jet Black and Neon Green
 │   └── images/
-│       ├── profile.png
-│       └── profile.webp
-├── .github/workflows/
-│   └── deploy.yml
-└── README.md
+│       └── profile.png   # Portrait image
+└── README.md             # Documentation
 ```
 
-## Features
+---
 
-- Opens straight onto the page (no landing screen)
-- Sticky header with active-section highlighting and a mobile menu
-- Light and dark themes: follows the visitor's system setting, with a toggle that remembers their choice
-- Accessible by default: skip link, visible keyboard focus, semantic landmarks, reduced-motion support
-- Contact form opens the visitor's email app with the message pre-filled
-- Public, non-fork repositories are pulled in automatically from the GitHub API
+## 🚀 Deployment
 
-## Editing your content
-
-**Projects**: open `script.js` and edit the `myProjects` array at the top:
-
-```javascript
-const myProjects = [
-  {
-    title: "My Project Name",
-    description: "One-line description of what this project does.",
-    tags: ["React", "HTML5", "CSS3"],
-    liveUrl: "https://my-demo-link.com",
-    githubUrl: "https://github.com/harshii921/my-repo", // optional: shows a "Code" link
-    preview: "timeline"                                  // optional: mini calendar preview
-  }
-];
-```
-
-Each card opens `liveUrl` in a new tab. If the array is empty, a "Projects coming soon" card links to your GitHub profile.
-
-**Colours**: change the variables at the top of `style.css` (`--accent`, `--bg`, `--text`, and the `[data-theme="dark"]` block).
-
-**Text**: headings, bio, skills and education are plain HTML in `index.html`.
-
-## Deploy to GitHub Pages
-
-1. Push the repository to GitHub.
-2. Go to **Settings** > **Pages**.
-3. Under **Build and deployment**, choose **Deploy from a branch** and select `/ (root)`.
+Push to GitHub and enable **GitHub Pages** under **Settings** > **Pages** > **Deploy from branch `/ (root)`**.

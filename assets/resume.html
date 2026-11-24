@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nayani Sai Harshini - Resume</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    @page {
+      size: A4;
+      margin: 12mm 15mm 12mm 15mm;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      font-size: 9.5pt;
+      line-height: 1.45;
+      color: #1a202c;
+      background: #ffffff;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 24px 28px;
+    }
+    a {
+      color: #0e6245;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Header */
+    .header {
+      text-align: center;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #15803d;
+      margin-bottom: 12px;
+    }
+    .name {
+      font-size: 22pt;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      line-height: 1.1;
+      margin-bottom: 3px;
+    }
+    .role-title {
+      font-size: 10.5pt;
+      font-weight: 600;
+      color: #166534;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+    .contact-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      font-size: 8.5pt;
+      color: #475569;
+    }
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    /* Section Headings */
+    .section {
+      margin-bottom: 11px;
+    }
+    .section-title {
+      font-size: 10.5pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 3px;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    /* Entries */
+    .entry {
+      margin-bottom: 7px;
+    }
+    .entry:last-child {
+      margin-bottom: 0;
+    }
+    .entry-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .entry-title {
+      font-size: 9.8pt;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .entry-subtitle {
+      font-size: 8.8pt;
+      font-weight: 600;
+      color: #166534;
+    }
+    .entry-date {
+      font-size: 8.5pt;
+      font-family: 'JetBrains Mono', monospace;
+      color: #64748b;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .entry-tags {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 8pt;
+      color: #475569;
+      margin-bottom: 3px;
+    }
+    .bullet-list {
+      list-style-type: disc;
+      padding-left: 16px;
+      font-size: 9pt;
+      color: #334155;
+    }
+    .bullet-list li {
+      margin-bottom: 2.5px;
+      line-height: 1.38;
+    }
+    .bullet-list li strong {
+      color: #0f172a;
+    }
+    /* Skills Grid */
+    .skills-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 9pt;
+    }
+    .skill-line {
+      display: flex;
+      line-height: 1.4;
+    }
+    .skill-category {
+      font-weight: 700;
+      min-width: 140px;
+      color: #0f172a;
+      font-size: 8.8pt;
+    }
+    .skill-names {
+      color: #334155;
+      flex: 1;
+    }
+    /* Certifications Grid */
+    .certs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px 14px;
+      font-size: 8.6pt;
+    }
+    .cert-item {
+      display: flex;
+      flex-direction: column;
+      background: #f8fafc;
+      padding: 5px 8px;
+      border-radius: 4px;
+      border-left: 3px solid #15803d;
+    }
+    .cert-name {
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .cert-issuer {
+      color: #475569;
+      font-size: 8pt;
+      display: flex;
+      justify-content: space-between;
+    }
+    .cert-badge {
+      font-weight: 700;
+      color: #166534;
+    }
+    @media print {
+      body {
+        padding: 0;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <h1 class="name"><span style="color:#15803d; font-weight:800;">Nayani</span> Sai Harshini</h1>
+    <div class="role-title">Web Developer &amp; UI Designer &bull; Computer Science &amp; Engineering</div>
+    <div class="contact-row">
+      <span class="contact-item">Madanapalle, AP, India</span>
+      <span>&bull;</span>
+      <span class="contact-item">+91 9036909051</span>
+      <span>&bull;</span>
+      <span class="contact-item"><a href="mailto:nayanisaiharshini@gmail.com">nayanisaiharshini@gmail.com</a></span>
+      <span>&bull;</span>
+      <span class="contact-item"><a href="https://linkedin.com/in/saiharshini-nayani-ba805032b" target="_blank">linkedin.com/in/saiharshini-nayani-ba805032b</a></span>
+      <span>&bull;</span>
+      <span class="contact-item"><a href="https://github.com/harshii921" target="_blank">github.com/harshii921</a></span>
+      <span>&bull;</span>
+      <span class="contact-item"><a href="https://harshii921.github.io/Portfolio/" target="_blank">harshii921.github.io/Portfolio</a></span>
+    </div>
+  </header>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <h2 class="section-title">Education</h2>
+    <div class="entry">
+      <div class="entry-head">
+        <div>
+          <span class="entry-title">Madanapalle Institute of Technology and Science (MITS)</span>
+          <span class="entry-subtitle"> &bull; B.Tech in Computer Science and Engineering</span>
+        </div>
+        <span class="entry-date">2023 – 2027</span>
+      </div>
+      <div style="font-size:8.5pt; color:#475569; margin-top:1px;">
+        <strong>Relevant Coursework:</strong> Data Structures &amp; Algorithms, Object-Oriented Programming (Java/Python), Computer Networks, Database Management Systems (SQL), Operating Systems, Distributed Systems.
+      </div>
+    </div>
+  </section>
+
+  <!-- TECHNICAL SKILLS -->
+  <section class="section">
+    <h2 class="section-title">Technical Skills</h2>
+    <div class="skills-block">
+      <div class="skill-line">
+        <span class="skill-category">Languages:</span>
+        <span class="skill-names">Python, Java, C, C++, SQL</span>
+      </div>
+      <div class="skill-line">
+        <span class="skill-category">Frontend:</span>
+        <span class="skill-names">React.js, HTML5, CSS3, Modern Web Layouts, CSS Grid, Flexbox, WCAG 2.1 AA</span>
+      </div>
+      <div class="skill-line">
+        <span class="skill-category">Networking &amp; Tools:</span>
+        <span class="skill-names">Computer Networks, SNMP Protocol, MIB/OID Telemetry, Git, GitHub</span>
+      </div>
+      <div class="skill-line">
+        <span class="skill-category">Product Engineering:</span>
+        <span class="skill-names">Design Thinking, Startup Incubation, Business Model Validation, User Journey Mapping</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section">
+    <h2 class="section-title">Featured Projects</h2>
+
+    <!-- Project 1 -->
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">MeetWise – Intelligent Multi-Calendar Meeting Scheduler</span>
+        <span class="entry-date">FastAPI &bull; Vanilla JS &bull; NLP</span>
+      </div>
+      <div class="entry-tags">
+        <a href="https://intelligent-meeting-scheduler.onrender.com/" target="_blank">Live Demo &rarr;</a> | 
+        <a href="https://github.com/harshii921" target="_blank">github.com/harshii921 &rarr;</a>
+      </div>
+      <ul class="bullet-list">
+        <li>Engineered a deterministic <strong>interval-intersection computation engine</strong> that analyzes participant calendar busy-windows across multiple timezones, calculating conflict-free slots in <strong>&lt;50ms</strong>.</li>
+        <li>Implemented a lightweight <strong>natural-language request parser</strong> translating freeform prompts (e.g., <em>"Schedule 45min team sync tomorrow"</em>) directly into confirmed calendar proposals, reducing scheduling coordination latency by <strong>85%</strong>.</li>
+        <li>Built an accessible, zero-dependency responsive UI with clean CSS Grid and vanilla ES6+ state management, eliminating framework bundle overhead for sub-second page loads.</li>
+      </ul>
+    </div>
+
+    <!-- Project 2 -->
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">NetPulse – SNMP Network Topology &amp; Interface Telemetry Monitor</span>
+        <span class="entry-date">Python &bull; SNMP MIBs &bull; SVG</span>
+      </div>
+      <div class="entry-tags">
+        <a href="https://github.com/harshii921" target="_blank">github.com/harshii921 &rarr;</a>
+      </div>
+      <ul class="bullet-list">
+        <li>Developed a real-time network telemetry platform querying SNMP v2c/v3 agents across switches and routers to monitor interface link states, packet throughput, and CRC error counts without proprietary agent dependencies.</li>
+        <li>Designed dynamic vector topology maps using SVG Canvas with real-time port status indicators and automated alert triggers upon bandwidth saturation across <strong>50+ network interfaces</strong> with a 2s polling interval.</li>
+        <li>Built asynchronous telemetry polling loops in Python and structured JSON telemetry APIs for instant browser status visualizations.</li>
+      </ul>
+    </div>
+
+    <!-- Project 3 -->
+    <div class="entry">
+      <div class="entry-head">
+        <span class="entry-title">DevCanvas – Accessible UI Design Token System &amp; Web Portal</span>
+        <span class="entry-date">React.js &bull; Tailwind CSS &bull; Figma</span>
+      </div>
+      <div class="entry-tags">
+        <a href="https://github.com/harshii921" target="_blank">github.com/harshii921 &rarr;</a>
+      </div>
+      <ul class="bullet-list">
+        <li>Designed an atomic design token system and 40+ modular components in <strong>Figma</strong>, translated directly into reusable production <strong>React.js</strong> components styled with Tailwind CSS.</li>
+        <li>Conducted rigorous accessibility audits achieving <strong>100% WCAG 2.1 AA compliance</strong>, complete keyboard focus trapping, high contrast color tokens, and full screen-reader support.</li>
+        <li>Optimized multi-step consultation workflows and responsive grid layouts, decreasing user form abandonment by <strong>42%</strong> and maintaining First Contentful Paint under <strong>1.1 seconds</strong>.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS & HONORS -->
+  <section class="section">
+    <h2 class="section-title">Verified National Certifications (NPTEL / IITs / MoE)</h2>
+    <div class="certs-grid">
+      
+      <div class="cert-item">
+        <span class="cert-name">Understanding Incubation &amp; Entrepreneurship</span>
+        <div class="cert-issuer">
+          <span>IIT Bombay &bull; 12 Weeks</span>
+          <span class="cert-badge">Score: 83% (Elite + Silver)</span>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <span class="cert-name">Big Data Computing</span>
+        <div class="cert-issuer">
+          <span>IIT Kanpur &bull; 8 Weeks</span>
+          <span class="cert-badge">Score: 62% (Elite, 100% Asg)</span>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <span class="cert-name">Developing Soft Skills &amp; Personality</span>
+        <div class="cert-issuer">
+          <span>IIT Kanpur &bull; 8 Weeks</span>
+          <span class="cert-badge">Score: 61% (Elite)</span>
+        </div>
+      </div>
+
+      <div class="cert-item">
+        <span class="cert-name">Product Engineering &amp; Design Thinking</span>
+        <div class="cert-issuer">
+          <span>IIT Kharagpur &bull; 8 Weeks</span>
+          <span class="cert-badge">Score: 60% (Elite)</span>
+        </div>
+      </div>
+
+      <div class="cert-item" style="grid-column: 1 / -1;">
+        <span class="cert-name">Privacy and Security in Online Social Media</span>
+        <div class="cert-issuer">
+          <span>IIIT Hyderabad / IIT Madras &bull; 12 Weeks</span>
+          <span class="cert-badge">Score: 55% (Certified)</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</body>
+</html>
